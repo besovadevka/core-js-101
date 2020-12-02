@@ -7,7 +7,6 @@
  *                                                                                           *
  ******************************************************************************************* */
 
-
 /**
  * Returns an area of a rectangle given by width and heigth.
  *
@@ -19,10 +18,9 @@
  *   5, 10 => 50
  *   5, 5  => 25
  */
-function getRectangleArea(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleArea(width, height) {
+  return width * height;
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -51,8 +49,8 @@ function getCicleCircumference(/* radius */) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function getAverage(value1, value2) {
+  return (value1 + value2) / 2;
 }
 
 /**
@@ -89,7 +87,6 @@ function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
 function getLinearEquationRoot(/* a, b */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
@@ -128,7 +125,6 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
 function getLastDigit(/* value */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns a number by given string representation.

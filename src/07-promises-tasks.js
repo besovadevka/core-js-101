@@ -1,10 +1,9 @@
 /* ************************************************************************************************
  *                                                                                                *
- * Plese read the following tutorial before implementing tasks:                                   *
+ * Please read the following tutorial before implementing tasks:                                   *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise       *
  *                                                                                                *
  ************************************************************************************************ */
-
 
 /**
  * Return Promise object that is resolved with string value === 'Hooray!!! She said "Yes"!',
@@ -28,10 +27,15 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise((resolve, reject) => {
+    if (isPositiveAnswer) resolve('Hooray!!! She said "Yes"!');
+    if (isPositiveAnswer === false) resolve('Oh no, she said "No".');
+    if (typeof isPositiveAnswer !== 'boolean') {
+      reject(new Error('Wrong parameter is passed! Ask her again.'));
+    }
+  });
 }
-
 
 /**
  * Return Promise object that should be resolved with array containing plain values.
@@ -48,8 +52,8 @@ function willYouMarryMe(/* isPositiveAnswer */) {
  *    })
  *
  */
-function processAllPromises(/* array */) {
-  throw new Error('Not implemented');
+function processAllPromises(array) {
+  return Promise.all(array);
 }
 
 /**
@@ -71,8 +75,8 @@ function processAllPromises(/* array */) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
+function getFastestPromise(array) {
+  return Promise.race(array);
 }
 
 /**

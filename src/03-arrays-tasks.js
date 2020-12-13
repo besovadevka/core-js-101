@@ -555,25 +555,26 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
-  // const one = keySelector.toString().slice(13);
-  // const two = valueSelector.toString().slice(13);
-  // const newArr = array;
-  // const keys = Array.from(new Set(array.map(keySelector)));
-  // const res = new Array(keys.length)
-  //   .fill(0)
-  //   .map(() => new Array(2).fill(0))
-  //   .map((item, index) => item.map((_, ind) => (ind === 0 ? keys[index] : [])));
-  // res.map((it) => {
-  //   newArr.map((el) => {
-  //     if (it[0] === el[one]) return it[1].push(el[two]);
-  //     return it;
-  //   });
-  //   return it;
-  // });
-
-  // return res;
+function group(array, keySelector, valueSelector) {
+  const one = keySelector
+    .toString()
+    .slice(keySelector.toString().indexOf('.') + 1);
+  const two = valueSelector
+    .toString()
+    .slice(valueSelector.toString().indexOf('.') + 1);
+  const newArr = array;
+  const keys = Array.from(new Set(array.map(keySelector)));
+  const res = new Array(keys.length)
+    .fill(0)
+    .map(() => new Array(2).fill(0))
+    .map((item, index) => item.map((_, ind) => (ind === 0 ? keys[index] : [])));
+  return res.map((it) => {
+    newArr.map((el) => {
+      if (it[0] === el[one]) return it[1].push(el[two]);
+      return it;
+    });
+    return it;
+  });
 }
 
 /**

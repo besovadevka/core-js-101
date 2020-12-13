@@ -1,6 +1,6 @@
 /* *******************************************************************************************
  *                                                                                           *
- * Plese read the following tutorial before implementing tasks:                              *
+ * Please read the following tutorial before implementing tasks:                              *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String   *
  *                                                                                           *
  ******************************************************************************************* */
@@ -218,8 +218,68 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const arrEn = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+  ];
+  const strArr = str.split(' ').map((item) => {
+    let res = '';
+    for (let i = 0; i < item.length; i += 1) {
+      let ind;
+      if (item[i] === item[i].toUpperCase()) {
+        ind = arrEn.indexOf(item[i].toLowerCase());
+        if (ind === -1) {
+          ind = item[i];
+        } else {
+          ind += 13;
+        }
+      } else {
+        ind = arrEn.indexOf(item[i]);
+        if (ind === -1) {
+          ind = item[i];
+        } else {
+          ind += 13;
+        }
+      }
+      if (ind > arrEn.length - 1) {
+        ind -= arrEn.length;
+      }
+      if (item[i] === item[i].toUpperCase() && ind !== item[i]) {
+        res += arrEn[ind].toUpperCase();
+      } else if (item[i] === item[i].toLowerCase() && ind !== item[i]) {
+        res += arrEn[ind].toLowerCase();
+      } else {
+        res += item[i];
+      }
+    }
+    return res;
+  });
+  return strArr.join(' ');
 }
 
 /**
@@ -263,8 +323,62 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return cards.indexOf(value);
 }
 
 module.exports = {

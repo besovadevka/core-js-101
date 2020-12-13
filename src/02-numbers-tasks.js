@@ -68,8 +68,10 @@ function getAverage(value1, value2) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  const first = (x2 - x1) ** 2;
+  const second = (y2 - y1) ** 2;
+  return Math.sqrt(first + second);
 }
 
 /**
@@ -84,8 +86,8 @@ function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  throw new Error('Not implemented');
+function getLinearEquationRoot(a, b) {
+  return -(b / a);
 }
 
 /**
@@ -106,8 +108,12 @@ function getLinearEquationRoot(/* a, b */) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const x = Math.sqrt(x1 * x1 + y1 * y1);
+  const y = Math.sqrt(x2 * x2 + y2 * y2);
+  const xx = x * y;
+  const cos = (x1 * x2 + y1 * y2) / xx;
+  return Math.acos(cos);
 }
 
 /**
@@ -176,8 +182,13 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  if (pow === 0) return num;
+  const res = num.toString();
+  if (+res[res.length - pow] > 4) {
+    return +(+res.slice(0, res.length - pow) + 1 + '0'.repeat(pow));
+  }
+  return +(+res.slice(0, res.length - pow) + '0'.repeat(pow));
 }
 
 /**
@@ -197,8 +208,11 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  for (let i = 2; i < n + 1; i += 1) {
+    if (n % i === 0 && n !== i) return false;
+  }
+  return true;
 }
 
 /**

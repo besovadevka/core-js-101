@@ -121,8 +121,12 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const one = rect1.left > rect2.left + rect2.width;
+  const two = rect1.left + rect1.width < rect2.left;
+  const three = rect1.top + rect1.height < rect2.top;
+  const four = rect1.top > rect2.top + rect2.height;
+  return !(one || two || three || four);
 }
 
 /**
@@ -151,11 +155,10 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
-  // const x = circle.radius > point.x - circle.center.x;
-  // const y = circle.radius > point.y - circle.center.y;
-  // return x && y;
+function isInsideCircle(circle, point) {
+  const one = (point.y - circle.center.y) ** 2;
+  const two = (point.x - circle.center.x) ** 2;
+  return one + two < circle.radius ** 2;
 }
 
 /**
@@ -271,8 +274,22 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let sum = 0;
+  const len = ccn.toString().length;
+
+  for (let i = 0; i < len; i += 1) {
+    let num = +ccn.toString()[i];
+    if ((len - i) % 2 === 0) {
+      num *= 2;
+      if (num > 9) {
+        num -= 9;
+      }
+    }
+    sum += num;
+  }
+
+  return sum % 10 === 0;
 }
 
 /**
@@ -380,8 +397,8 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 /**
@@ -396,8 +413,31 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const el = pathes[0];
+  const min = Math.min(...pathes.map((elem) => elem.length));
+  let res = '';
+  for (let i = 0; i < min; i += 1) {
+    let count = 0;
+    pathes.map((it) => {
+      if (it[i] === el[i]) {
+        count += 1;
+      }
+      return it;
+    });
+    if (count === pathes.length) res += el[i];
+    if (count !== pathes.length) {
+      if (res[-1] !== '/') {
+        const reso = res.split('').reverse().join('');
+        return reso.slice(reso.indexOf('/')).split('').reverse().join('');
+      }
+    }
+  }
+  if (res[-1] !== '/') {
+    const reso = res.split('').reverse().join('');
+    return reso.slice(reso.indexOf('/')).split('').reverse().join('');
+  }
+  return res;
 }
 
 /**
@@ -452,8 +492,31 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const i = 0;
+  const j = 0;
+  const pos = [
+    position[i][j],
+    position[i][j + 1],
+    position[i][j + 2],
+    position[i + 1][j],
+    position[i + 2][j],
+    position[i + 1][j + 1],
+    position[i + 2][j + 2],
+    position[i + 1][j + 2],
+    position[i + 2][j + 1],
+  ];
+  const one = pos[0] === pos[1] && pos[0] === pos[2] ? pos[0] : false;
+  const two = pos[0] === pos[3] && pos[0] === pos[4] ? pos[0] : false;
+  const three = pos[0] === pos[5] && pos[0] === pos[6] ? pos[0] : false;
+  const four = pos[4] === pos[5] && pos[5] === pos[2] ? pos[4] : false;
+  const five = pos[3] === pos[5] && pos[5] === pos[7] ? pos[3] : false;
+  const six = pos[4] === pos[8] && pos[8] === pos[6] ? pos[4] : false;
+  const seven = pos[1] === pos[5] && pos[5] === pos[8] ? pos[1] : false;
+  const eight = pos[2] === pos[7] && pos[7] === pos[6] ? pos[2] : false;
+  return (
+    one || two || three || four || five || six || seven || eight || undefined
+  );
 }
 
 module.exports = {

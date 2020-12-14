@@ -8,7 +8,6 @@
  *                                                                                             *
  ********************************************************************************************* */
 
-
 /**
  * Returns the functions composition of two specified functions f(x) and g(x).
  * The result of compose is to be a function of one argument, (lets call the argument x),
@@ -23,10 +22,9 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return (x) => f(g(x));
 }
-
 
 /**
  * Returns the math power function with the specified exponent
@@ -44,10 +42,9 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (a) => a ** exponent;
 }
-
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
@@ -64,8 +61,35 @@ function getPowerFunction(/* exponent */) {
  */
 function getPolynom() {
   throw new Error('Not implemented');
-}
+  // const obj = { x: 0, y: 0 };
+  // return (a) => {
+  //   obj.x *= a;
+  //   obj.y = obj.x;
+  //   return (b) => {
+  //     obj.x = b * obj.x ** 2;
+  //     obj.y = obj.x;
+  //     return (c) => {
+  //       obj.x = c * obj.x ** 3;
+  //       obj.y = obj.x;
+  //       return obj.y;
+  //     };
+  //   };
+  // };
 
+  // 0 + a * obj.x + b * obj.x ** 2 + c * obj.x ** 3;
+  // return (a, b, c) => {
+  //   if (a && b && c) {
+  //     return `y = ${a}*x^${a} + ${b} * x + ${c}`;
+  //   }
+  //   if (a && b) {
+  //     return `y = ${a}*x^${a} + ${b}`;
+  //   }
+  //   if (a) {
+  //     return `y = ${a}`;
+  //   }
+  //   return null;
+  // };
+}
 
 /**
  * Memoizes passed function and returns function
@@ -81,10 +105,10 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const val = func();
+  return () => val;
 }
-
 
 /**
  * Returns the function trying to call the passed function and if it throws,
@@ -103,8 +127,15 @@ function memoize(/* func */) {
  */
 function retry(/* func, attempts */) {
   throw new Error('Not implemented');
+  // let att = attempts;
+  // return () => {
+  //   while (func() === 'test' && att !== 0) {
+  //     att -= 1;
+  //     func();
+  //   }
+  //   return func();
+  // };
 }
-
 
 /**
  * Returns the logging wrapper for the specified method,
@@ -129,10 +160,18 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  // throw new Error('Not implemented');
+  return (...a) => {
+    const args = JSON.stringify(a).slice(1, -1);
+    const starts = `${func.name}(${args}) starts`;
+    const ends = `${func.name}(${args}) ends`;
+    logFunc(starts);
+    const res = func(...a);
+    logFunc(ends);
+    return res;
+  };
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -147,10 +186,9 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...a) => fn(...args1, ...a);
 }
-
 
 /**
  * Returns the id generator function that returns next integer starting
@@ -169,10 +207,14 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  const val = startFrom - 1;
+  let counter = 0;
+  return () => {
+    counter += 1;
+    return val + counter;
+  };
 }
-
 
 module.exports = {
   getComposition,
